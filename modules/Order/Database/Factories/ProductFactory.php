@@ -13,7 +13,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence,
-            'price' => $this->faker->numberBetween(100, 1000),
+            'price_in_cents' => $this->faker->numberBetween(100, 10000),
             'stock' => $this->faker->numberBetween(1, 10),
         ];
     }

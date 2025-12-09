@@ -4,6 +4,7 @@ namespace Http\Controller;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderLine;
 use Modules\Order\Tests\OrderTestCase;
@@ -13,6 +14,8 @@ use PHPUnit\Framework\Attributes\Test;
 
 class CheckoutControllerTest extends OrderTestCase
 {
+    use RefreshDatabase;
+
     #[Test]
     public function it_successfully_creates_an_order(): void
     {
@@ -57,6 +60,10 @@ class CheckoutControllerTest extends OrderTestCase
             $this->assertEquals($product->price_in_cents, $orderLine->product_price_in_cents);
             $this->assertEquals(1, $orderLine->quantity);
         }
+
+        $products = $products->fresh();
+        $this->assertEquals(9, $products->first()->stock);
+        $this->assertEquals(9, $products->last()->stock);
     }
 
     #[Test]

@@ -4,6 +4,7 @@ namespace Modules\Payment;
 
 use Illuminate\Support\Number;
 use Illuminate\Support\Str;
+use RuntimeException;
 
 final class PayBuddy
 {
@@ -40,7 +41,7 @@ final class PayBuddy
     protected function validateToken(string $token): void
     {
         if (! Str::isUuid($token)) {
-            throw new \RuntimeException('The given payment token is not valid.');
+            throw new RuntimeException('The given payment token is not valid.');
         }
     }
 }
